@@ -1,0 +1,56 @@
+name: Deploy Godot Web Game to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "TenMinutesToDawn-Web.zip"
+      - ".github/workflows/deploy-pages.yml"
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare Pages directory
+        run: |
+          mkdir -p docs
+          unzip -q TenMinutesToDawn-Web.zip -d docs
+          touch docs/.nojekyll
+          test -f docs/index.html
+          echo "Web export files:"
+          find docs -maxdepth 2 -type f -printf '%p (%s bytes)\n' | sort
+          echo "Total deployed size:"
+          du -sh docs
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
