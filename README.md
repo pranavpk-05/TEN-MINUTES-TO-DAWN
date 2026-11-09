@@ -14,6 +14,14 @@
 
 ---
 
+## ▶ Play online
+
+[**Play TEN MINUTES TO DAWN in your browser →**](https://pranavpk-05.github.io/TEN-MINUTES-TO-DAWN/)
+
+[![Deploy to GitHub Pages](https://github.com/pranavpk-05/TEN-MINUTES-TO-DAWN/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/pranavpk-05/TEN-MINUTES-TO-DAWN/actions/workflows/deploy-pages.yml)
+
+The browser build is published from the Godot Web export in `TenMinutesToDawn-Web.zip`. The link becomes playable after the first successful Pages deployment.
+
 ## About the game
 
 **Ten Minutes to Dawn** is a first-person survival horror game that places you inside Marigold Court, a dark and unsettling location where something seems to be getting closer every night.
